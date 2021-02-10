@@ -30,7 +30,7 @@
 // 
 let LogHeader = Syslog
 | where Computer in ("server1", "server2") // server1 and server2 are examples, replace this list with your CylancePROTECT devices
-| extend EventType = extract(@"Event Type: ([^,]+),",1,SyslogMessage),
+| extend EventType = split(SyslogMessage, ",")[0],
         EventName = extract(@"Event Name: ([^,]+),",1,SyslogMessage),
         DeviceName = extract(@"Device Name: ([^,]+),",1,SyslogMessage);
 let DeviceEvents = LogHeader
